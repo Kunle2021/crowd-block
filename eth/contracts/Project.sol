@@ -32,8 +32,8 @@ contract Project {
 
     mapping(address => bool) contributers;
 
-    constructor(uint256 minimum) public payable {
-        manager = msg.sender;
+    constructor(uint256 minimum, address creator) payable {
+        manager = creator;
         minContribution = minimum;
     }
 
@@ -86,7 +86,7 @@ contract Project {
         //More than 50% of contributers must have approved so request can pass
         //if the request is already complete it breaks
         payable(request.recipient).transfer(request.value);
-        //Transfering funds hence request must be payable 
+        //Transfering funds hence request must be payable
         request.complete = true;
     }
 
