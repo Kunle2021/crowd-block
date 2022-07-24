@@ -11,15 +11,14 @@ contract ProjectFactory {
     address[] public deployedCampaigns;
 
     function CreateCampaign(uint256 minimum) public payable {
-        address newContract = new Project(minimum, msg.sender);
-        deployedCampaigns.push(newContract);
+        Project newContract = new Project(minimum, msg.sender);
+        deployedCampaigns.push(payable(address(newContract)));
         //When we create an instance of a campaign the constructor must also be considered
     }
 
-    function getDeployedCampaigns() public view returns (address[]) {
+    function getDeployedCampaigns() public view returns (address[] memory) {
         return deployedCampaigns;
     }
 }
 
 //Project Factory - Uses a factory contract to help deploy an instance of the contract
-
