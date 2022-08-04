@@ -74,8 +74,8 @@
       ]
     },
     "C:\\Users\\eleayo\\VS Code\\crowdblock\\contracts\\ProjectFactory.sol": {
-      "lastModificationDate": 1658709518899,
-      "contentHash": "1095b20c82b18728aaa12ac7021f1bd4",
+      "lastModificationDate": 1659615702077,
+      "contentHash": "17614717c863f9619f769ab17d2f7bd8",
       "sourceName": "contracts/ProjectFactory.sol",
       "solcConfig": {
         "version": "0.8.6",
