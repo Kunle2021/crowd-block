@@ -1,11 +1,15 @@
 
+import Ganache from "ganache";
 import { ethers } from "hardhat";
 import { Project, ProjectFactory } from "../typechain-types"
 
-describe("Project", function () {
+//Deploying a contract and accessing contract functions 
+
+describe("Deploying the project contract from the projectFactory", function () {
   let projectFactory: ProjectFactory;
   let project: Project;
   let projectAddress: string;
+
 
   it("Should deploy a projectFactory ", async () => {
     const ProjectFactory = await ethers.getContractFactory("ProjectFactory");
@@ -21,13 +25,18 @@ describe("Project", function () {
     if (args) projectAddress = args[0];
   });
 
-  it("attach an abi interface to the deployed domain", async () => {
+  it("attach an abi interface to the deployed project", async () => {
     const Project = await ethers.getContractFactory("Project");
     project = await Project.attach(projectAddress);
   });
 
-  it("get data from Project deployed by ProjectFactory ", async () => {
-    const res = await project.Contribute()
-    console.log(res);
-  });
+  //Need to test getting the address of the campaign that is deployed.
+  
+
+  it("Get Address of the deployed contract", async () => {
+    const mp = await projectFactory.getDeployedCampaigns();
+    console.log(mp);
+  })
+
+  
 });
