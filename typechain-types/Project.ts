@@ -32,6 +32,7 @@ export interface ProjectInterface extends utils.Interface {
     "finishRequest(uint256)": FunctionFragment;
     "manager()": FunctionFragment;
     "minContribution()": FunctionFragment;
+    "requests(uint256)": FunctionFragment;
   };
 
   getFunction(
@@ -43,6 +44,7 @@ export interface ProjectInterface extends utils.Interface {
       | "finishRequest"
       | "manager"
       | "minContribution"
+      | "requests"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -74,6 +76,10 @@ export interface ProjectInterface extends utils.Interface {
     functionFragment: "minContribution",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "requests",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "Contribute", data: BytesLike): Result;
   decodeFunctionResult(
@@ -97,6 +103,7 @@ export interface ProjectInterface extends utils.Interface {
     functionFragment: "minContribution",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "requests", data: BytesLike): Result;
 
   events: {};
 }
@@ -154,6 +161,19 @@ export interface Project extends BaseContract {
     manager(overrides?: CallOverrides): Promise<[string]>;
 
     minContribution(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    requests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, string, boolean, BigNumber] & {
+        description: string;
+        value: BigNumber;
+        recipient: string;
+        complete: boolean;
+        approverCount: BigNumber;
+      }
+    >;
   };
 
   Contribute(
@@ -183,6 +203,19 @@ export interface Project extends BaseContract {
 
   minContribution(overrides?: CallOverrides): Promise<BigNumber>;
 
+  requests(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [string, BigNumber, string, boolean, BigNumber] & {
+      description: string;
+      value: BigNumber;
+      recipient: string;
+      complete: boolean;
+      approverCount: BigNumber;
+    }
+  >;
+
   callStatic: {
     Contribute(overrides?: CallOverrides): Promise<void>;
 
@@ -208,6 +241,19 @@ export interface Project extends BaseContract {
     manager(overrides?: CallOverrides): Promise<string>;
 
     minContribution(overrides?: CallOverrides): Promise<BigNumber>;
+
+    requests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, string, boolean, BigNumber] & {
+        description: string;
+        value: BigNumber;
+        recipient: string;
+        complete: boolean;
+        approverCount: BigNumber;
+      }
+    >;
   };
 
   filters: {};
@@ -239,6 +285,11 @@ export interface Project extends BaseContract {
     manager(overrides?: CallOverrides): Promise<BigNumber>;
 
     minContribution(overrides?: CallOverrides): Promise<BigNumber>;
+
+    requests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -268,5 +319,10 @@ export interface Project extends BaseContract {
     manager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     minContribution(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    requests(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
   };
 }

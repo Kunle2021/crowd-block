@@ -25,7 +25,7 @@ contract Project {
     uint256 public contributersCount;
 
     uint256 numRequests;
-    mapping(uint256 => Request) requests;
+    mapping(uint256 => Request) public requests;
 
     //Can't use an array of approvers due to gas fees
     // address[] public contributors;
