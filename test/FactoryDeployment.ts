@@ -11,32 +11,32 @@ describe("Deploying the project contract from the projectFactory", function () {
   let projectAddress: string;
 
 
-  // it("Should deploy a projectFactory ", async () => {
-  //   const ProjectFactory = await ethers.getContractFactory("ProjectFactory");
-  //   projectFactory = await ProjectFactory.deploy();
-  //   await projectFactory.deployed();
-  // });
+  it("Should deploy a projectFactory ", async () => {
+    const ProjectFactory = await ethers.getContractFactory("ProjectFactory");
+    projectFactory = await ProjectFactory.deploy();
+    await projectFactory.deployed();
+  });
 
-  // it("deploy a Project using ProjectFactory ", async () => {
-  //   const tx = await projectFactory.CreateCampaign(10);
-  //   const rc = await tx.wait();
-  //   const event = rc.events?.find((event) => event.event === "CreatedProject");
-  //   const args = event?.args;
-  //   if (args) projectAddress = args[0];
-  // });
+  it("deploy a Project using ProjectFactory ", async () => {
+    const tx = await projectFactory.CreateCampaign(10);
+    const rc = await tx.wait();
+    const event = rc.events?.find((event) => event.event === "CreatedProject");
+    const args = event?.args;
+    if (args) projectAddress = args[0];
+  });
 
-  // it("attach an abi interface to the deployed project", async () => {
-  //   const Project = await ethers.getContractFactory("Project");
-  //   project = await Project.attach(projectAddress);
-  // });
+  it("attach an abi interface to the deployed project", async () => {
+    const Project = await ethers.getContractFactory("Project");
+    project = await Project.attach(projectAddress);
+  });
 
-  // //Need to test getting the address of the campaign that is deployed.
+  //Need to test getting the address of the campaign that is deployed.
   
 
-  // it("Get Address of the deployed contract", async () => {
-  //   const mp = await projectFactory.getDeployedCampaigns();
-  //   console.log(mp);
-  // })
+  it("Get Address of the deployed contract", async () => {
+    const mp = await projectFactory.getDeployedCampaigns();
+    console.log(mp);
+  })
 
   
 });
