@@ -1,9 +1,7 @@
 const { expect } = require("chai");
 const { ethers, waffle } = require("hardhat");
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
-const { provider } = require("ganache");
 const { assert } = require("console");
-const { request } = require("http");
 
 describe("Test Project Contract functions", function () {
   async function deployContract() {
