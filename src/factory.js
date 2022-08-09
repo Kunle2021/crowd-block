@@ -16,17 +16,13 @@ const factoryaddress = "0x30414b6acf4c80d2ef263df96920f4f53bd48fe7";
 
 // console.log(typeof projectfactory);
 
-const signer = {
-  from: "0x21846383f0E395A7e6511b07f5e158e1609859b2", // default from address
-  gasPrice: "20000000000", // default gas price in wei, 20 gwei in this case
-};
-
-const test = JSON.stringify(projectfactory.abi);
-console.log(test);
-const parse = JSON.parse(test);
-console.log(parse);
-const factory = new web3.eth.Contract(parse, factoryaddress);
-console.log(factory);
+// const test = JSON.stringify(projectfactory.abi);
+// //Turns object into json
+// //I don't think the stringify is needed just testing stuff
+// const parse = JSON.parse(test);
+//Parses the json string
+const factory = new web3.eth.Contract(projectfactory.abi, factoryaddress);
+// console.log(factory);
 
 // const factory = new web3.eth.Contract(
 //   JSON.stringify(projectfactory);
