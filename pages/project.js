@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import factory from "../src/factory";
 
-export default function Project() {
-  useEffect(async () => {
-    const project = await factory.methods.getDeployedCampaigns().call();
-    console.log(project);
-  }, []);
+class Project extends Component {
+  static async getInitialProps() {
+    const projects = await factory.methods.getDeployedCampaigns().call();
 
-  //componentdid
+    return { projects };
+  }
+  //more efficient server side rendering - enables server-side rendering in a page
 
-  return (
-    <div>
-      <h1>Project Page</h1>
-    </div>
-  );
+  render() {
+    return <div>{this.props.projects[0]}</div>;
+  }
 }
+
+export default Project;
