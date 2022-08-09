@@ -1,17 +1,33 @@
-import React, { Component } from "react";
 import factory from "../src/factory";
 
-class Project extends Component {
+import React, { Component } from "react";
+
+export default class Project extends Component {
   static async getInitialProps() {
     const projects = await factory.methods.getDeployedCampaigns().call();
 
     return { projects };
   }
-  //more efficient server side rendering - enables server-side rendering in a page
+
+  // renderProjects() {
+  //   console.log("Test");
+  //   {
+  //     this.props.projects.map((address) => (
+  //       <div className="user">{address}</div>
+  //     ));
+  //   }
+  // }
+
+  //will eventually render the js into functions.
 
   render() {
-    return <div>{this.props.projects[0]}</div>;
+    return (
+      <div>
+        <h1>Home Page</h1>
+        {this.props.projects.map((address) => (
+          <div className="address">{address}</div>
+        ))}
+      </div>
+    );
   }
 }
-
-export default Project;
