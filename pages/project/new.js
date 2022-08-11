@@ -1,9 +1,16 @@
 import React from "react";
-import { Container, Space } from "@mantine/core";
 
 import { useForm } from "@mantine/form";
-import { TextInput, Button, Group } from "@mantine/core";
+import { Container, TextInput, Space, Group, Button } from "@mantine/core";
 import Menu from "../../components/menu";
+import factory from "../../src/factory";
+
+const buttonStyles = {
+  variant: "light",
+  color: "blue",
+  mt: "md",
+  radius: "md",
+};
 
 export default function New() {
   const form = useForm({
@@ -11,6 +18,11 @@ export default function New() {
       minContribution: "",
     },
   });
+
+  const onSumbit = async () => {
+    console.log(form.minContribution);
+    // const create = await factory.methods.CreateCampaign(minContribution);
+  };
 
   return (
     <div>
@@ -25,7 +37,12 @@ export default function New() {
           />
 
           <Group position="center" mt="xl">
-            <Button variant="outline" onClick={() => console.log("Test")}>
+            <Button
+              fullWidth
+              variant="light"
+              style={buttonStyles}
+              onClick={() => onSumbit()}
+            >
               Submit
             </Button>
           </Group>

@@ -7,7 +7,13 @@ export default () => {
     heigt: 200,
   };
 
-  return <Input placeholder="Find a Project" style={styleObj} />;
+  return (
+    <div>
+      <Center>
+        <Input placeholder="Find a Project" style={styleObj} />
+      </Center>
+    </div>
+  );
 };
 
 //May ignore the menu bar and implement the slider
