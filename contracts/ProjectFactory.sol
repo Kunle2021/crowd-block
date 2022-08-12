@@ -26,7 +26,7 @@ contract ProjectFactory {
 
     event CreatedProject(address projectAddress);
 
-    function CreateCampaign(uint256 minimum) public returns (address) {
+    function CreateCampaign(uint256 minimum) public payable returns (address) {
         Project newContract = new Project(minimum, msg.sender);
         deployedCampaigns.push(payable(address(newContract)));
         //When we create an instance of a campaign the constructor must also be considered

@@ -8,7 +8,7 @@ import type {
   BytesLike,
   CallOverrides,
   ContractTransaction,
-  Overrides,
+  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -113,7 +113,7 @@ export interface ProjectFactory extends BaseContract {
   functions: {
     CreateCampaign(
       minimum: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     deployedCampaigns(
@@ -126,7 +126,7 @@ export interface ProjectFactory extends BaseContract {
 
   CreateCampaign(
     minimum: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   deployedCampaigns(
@@ -158,7 +158,7 @@ export interface ProjectFactory extends BaseContract {
   estimateGas: {
     CreateCampaign(
       minimum: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     deployedCampaigns(
@@ -172,7 +172,7 @@ export interface ProjectFactory extends BaseContract {
   populateTransaction: {
     CreateCampaign(
       minimum: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     deployedCampaigns(
