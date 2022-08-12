@@ -22,6 +22,8 @@ import React, { Component } from "react";
 
 import Menu from "../components/menu";
 
+import First from "../components/project/first";
+
 const settings = {
   className: "center",
   centerMode: true,
@@ -29,7 +31,7 @@ const settings = {
   infinite: true,
   speed: 500,
   slidesToShow: 2,
-  slidesToScroll: 4,
+  slidesToScroll: 1,
   centerPadding: "60px",
   initialSlide: 0,
   responsive: [
@@ -37,7 +39,7 @@ const settings = {
       breakpoint: 1024,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 4,
+        slidesToScroll: 1,
         infinite: true,
         dots: true,
       },
@@ -59,41 +61,15 @@ const styleText = {
   width: "100",
 };
 
-const first = {
-  backgroundColor: "red",
-};
-
 export default function Projects({ projects }) {
   return (
     <div>
-      <Container fluid style={first}>
-        First Container
-      </Container>
+      <First />
       <Space h="xl" />
-      <Container fluid style={first}>
-        Second Container
-      </Container>
       <Container>
+        <Center></Center>
         <Space h="xl" />
-        <Space h="xl" />
-        <Menu />
-        <Space h="xl" />
-        <Space h="xl" />
-        <Center>
-          <Text
-            component="span"
-            align="center"
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            size="xl"
-            weight={700}
-            style={{ fontFamily: "Greycliff CF, sans-serif" }}
-          >
-            Latest Projects
-          </Text>{" "}
-        </Center>
-        <Space h="xl" />
-        <Slider {...settings}>
+        {/* <Slider {...settings}>
           {projects.map((address) => (
             <Card shadow="sm" p="lg" radius="md" withBorder>
               <Group position="apart" mt="md" mb="xs">
@@ -115,95 +91,7 @@ export default function Projects({ projects }) {
               </Button>
             </Card>
           ))}
-
-          {projects.map((address) => (
-            <Card shadow="sm" p="lg" radius="md" withBorder>
-              <Group position="apart" mt="md" mb="xs">
-                {" "}
-                <Text weight={500}>{address}</Text>
-                <Badge color="pink" variant="light">
-                  Contract
-                </Badge>
-              </Group>
-
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                View Project Details
-              </Button>
-            </Card>
-          ))}
-
-          {projects.map((address) => (
-            <Card shadow="sm" p="lg" radius="md" withBorder>
-              <Group position="apart" mt="md" mb="xs">
-                {" "}
-                <Text weight={500}>{address}</Text>
-                <Badge color="pink" variant="light">
-                  Contract
-                </Badge>
-              </Group>
-
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                View Project Details
-              </Button>
-            </Card>
-          ))}
-
-          {projects.map((address) => (
-            <Card shadow="sm" p="lg" radius="md" withBorder>
-              <Group position="apart" mt="md" mb="xs">
-                {" "}
-                <Text weight={500}>{address}</Text>
-                <Badge color="pink" variant="light">
-                  Contract
-                </Badge>
-              </Group>
-
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                View Project Details
-              </Button>
-            </Card>
-          ))}
-
-          {projects.map((address) => (
-            <Card shadow="sm" p="lg" radius="md" withBorder>
-              <Group position="apart" mt="md" mb="xs">
-                {" "}
-                <Text weight={500}>{address}</Text>
-                <Badge color="pink" variant="light">
-                  Contract
-                </Badge>
-              </Group>
-
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                View Project Details
-              </Button>
-            </Card>
-          ))}
-        </Slider>
+        </Slider> */}
         <Space h="xl" />
         <Space h="xl" />
         <Center>
@@ -226,13 +114,8 @@ export default function Projects({ projects }) {
             {/* Main header text */}
           </Text>{" "}
         </Center>
-        <Space h="xl" />
         <Stack
           sx={(theme) => ({
-            backgroundColor:
-              theme.colorScheme === "dark"
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
             height: 600,
             paddingRight: 100,
             paddingLeft: 100,

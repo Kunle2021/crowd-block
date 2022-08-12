@@ -3,9 +3,11 @@ import { IconBrandTwitter, IconDatabase, IconPlus } from "@tabler/icons";
 
 export default () => {
   const styleObj = {
-    width: 800,
+    width: 500,
     heigt: 200,
   };
+
+  //change menu text.
 
   return (
     <div>
