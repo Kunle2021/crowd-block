@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import { Container, Space, NumberInput } from "@mantine/core";
 
-import Menu from "../../components/menu";
+import Menu from "../../components/search";
 import factory from "../../src/factory";
 import Web3 from "../../src/Web3";
+import { Router } from "../../routes";
+import Searchheader from "../../components/searchheader";
 
 import {
   createStyles,
@@ -136,6 +138,7 @@ export default function New() {
       await factory.methods.CreateCampaign(form.values.minContribution).send({
         from: account[0],
       });
+      Router.pushRoute("/");
     } catch (error) {
       setError({
         error,
@@ -149,7 +152,7 @@ export default function New() {
   return (
     <div>
       <Space h="xl" />
-      <Menu />
+      <Searchheader />
       <Space h="xl" />
 
       <div className={classes.wrapper}>
