@@ -14,6 +14,7 @@ import {
   TextInput,
   Button,
   Image,
+  LoadingOverlay,
 } from "@mantine/core";
 // import image from "./image.svg";
 
@@ -25,9 +26,9 @@ const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.md,
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
-    border: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[3]
-    }`,
+    // border: `1px solid ${
+    //   theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[3]
+    // }`,
 
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
       flexDirection: "column-reverse",
@@ -53,10 +54,27 @@ const useStyles = createStyles((theme) => ({
   },
 
   title: {
+    // color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    // fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    // lineHeight: 1,
+    // marginBottom: theme.spacing.md,
+    textAlign: "center",
+    fontWeight: 800,
+    fontSize: 40,
+    letterSpacing: -1,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    marginBottom: theme.spacing.xs,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    lineHeight: 1,
-    marginBottom: theme.spacing.md,
+
+    "@media (max-width: 520px)": {
+      fontSize: 28,
+      //textAlign: "left",
+    },
+  },
+
+  highlight: {
+    color:
+      theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
   },
 
   controls: {
@@ -96,7 +114,9 @@ const container = {
 
 export default function New() {
   const { classes } = useStyles();
+
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: { minContribution: 0 },
@@ -109,6 +129,8 @@ export default function New() {
   });
 
   const onContribute = async () => {
+    setLoading(true);
+
     try {
       const account = await Web3.eth.getAccounts();
       await factory.methods.CreateCampaign(form.values.minContribution).send({
@@ -116,9 +138,12 @@ export default function New() {
       });
     } catch (error) {
       setError({
-        errorMessage,
+        error,
       });
+      //may look at error box here
     }
+
+    setLoading(false);
   };
 
   return (
@@ -129,15 +154,17 @@ export default function New() {
 
       <div className={classes.wrapper}>
         <div className={classes.body}>
-          <Title className={classes.title}>Wait a minute...</Title>
-          <Text weight={500} size="lg" mb={5}>
-            Subscribe to our newsletter!
-          </Text>
+          <Title className={classes.title}>
+            Create a{" "}
+            <Text component="span" className={classes.highlight} inherit>
+              Project
+            </Text>{" "}
+            on the Blockchain
+          </Title>
           <Text size="sm" color="dimmed">
-            You will never miss important product updates, latest news and
-            community QA sessions. Our newsletter is once a week, every Sunday.
-          </Text>
-
+            A CrowdBlock project does more than raise money. It builds community
+            around your work.
+          </Text>{" "}
           <div className={classes.controls}>
             <Container
               style={container}
@@ -146,38 +173,25 @@ export default function New() {
               <form onSubmit={form.onSubmit(onContribute)}>
                 <NumberInput
                   mt="sm"
-                  label="minContribution"
+                  label="minContribution(WEI)"
                   placeholder="minContribution"
                   min={0}
                   max={100000000000000}
                   {...form.getInputProps("minContribution")}
                 />
-                <Button type="submit" mt="sm" style={buttonStyles}>
+                <Button
+                  loading={loading}
+                  type="submit"
+                  mt="sm"
+                  style={buttonStyles}
+                >
                   Submit
                 </Button>
               </form>
             </Container>
           </div>
         </div>
-        {/* <Image src={image.src} className={classes.image} /> */}
       </div>
-
-      {/* <Space h="xl" />
-      <Container style={container}>
-        <form onSubmit={form.onSubmit(onContribute)}>
-          <NumberInput
-            mt="sm"
-            label="minContribution"
-            placeholder="minContribution"
-            min={0}
-            max={100000000000000}
-            {...form.getInputProps("minContribution")}
-          />
-          <Button type="submit" mt="sm" style={buttonStyles}>
-            Submit
-          </Button>
-        </form>
-      </Container> */}
     </div>
   );
 }

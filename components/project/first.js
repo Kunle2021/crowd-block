@@ -7,13 +7,15 @@ import {
   Button,
   Overlay,
   createStyles,
+  Center,
+  Space,
 } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
     position: "relative",
     paddingTop: 120,
-    paddingBottom: 80,
+    paddingBottom: 40,
 
     "@media (max-width: 755px)": {
       paddingTop: 80,
@@ -110,6 +112,10 @@ export default function first() {
           <div className={classes.controls}>
             <Menu />
           </div>
+          <Space h="xl" />
+          <Center>
+            <Button>Create a Project</Button>
+          </Center>
         </div>
       </Container>
     </div>

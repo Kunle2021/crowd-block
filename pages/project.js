@@ -15,6 +15,9 @@ import {
   Center,
   Space,
   Input,
+  ScrollArea,
+  Table,
+  createStyles,
 } from "@mantine/core";
 import { IconDatabase } from "@tabler/icons";
 
@@ -47,6 +50,10 @@ const settings = {
   ],
 };
 
+const styleButton = {
+  backgroundColor: "green",
+};
+
 const styleText = {
   component: "span",
   align: "center",
@@ -62,13 +69,29 @@ const styleText = {
 };
 
 export default function Projects({ projects }) {
+  const data = projects.map((projects) => (
+    <tr key={projects}>
+      <td>
+        <Group spacing="sm">
+          <div>
+            <Text size="sm" weight={500}>
+              {projects}
+            </Text>
+          </div>
+        </Group>
+      </td>
+      <td>Contract</td>
+      <td>
+        <Button style={styleButton}>View Details</Button>
+      </td>
+    </tr>
+  ));
+
   return (
     <div>
       <First />
-      <Space h="xl" />
       <Container>
         <Center></Center>
-        <Space h="xl" />
         {/* <Slider {...settings}>
           {projects.map((address) => (
             <Card shadow="sm" p="lg" radius="md" withBorder>
@@ -92,28 +115,22 @@ export default function Projects({ projects }) {
             </Card>
           ))}
         </Slider> */}
-        <Space h="xl" />
-        <Space h="xl" />
-        <Center>
-          <Button>Create Project</Button>
-        </Center>
-        <Space h="xl" />
-        <Space h="xl" />
-        <Center>
-          {" "}
-          <Text
-            component="span"
-            align="center"
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            size="xl"
-            weight={700}
-            style={{ fontFamily: "Greycliff CF, sans-serif" }}
-          >
-            All Projects
-            {/* Main header text */}
-          </Text>{" "}
-        </Center>
+        {/* <Space h="xl" />
+        <Space h="xl" /> */}
+        <div>
+          <ScrollArea>
+            <Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Type</th>
+                  <th>View</th>
+                </tr>
+              </thead>
+              <tbody>{data}</tbody>
+            </Table>
+          </ScrollArea>
+        </div>
         <Stack
           sx={(theme) => ({
             height: 600,
@@ -123,27 +140,6 @@ export default function Projects({ projects }) {
             radius: 100,
           })}
         >
-          {projects.map((address) => (
-            <Card shadow="sm" p="lg" radius="md" withBorder>
-              <Group position="apart" mt="md" mb="xs">
-                {" "}
-                <Text weight={500}>{address}</Text>
-                <Badge color="pink" variant="light">
-                  Contract
-                </Badge>
-              </Group>
-
-              <Button
-                variant="light"
-                color="blue"
-                fullWidth
-                mt="md"
-                radius="md"
-              >
-                View Project Details
-              </Button>
-            </Card>
-          ))}
           <Space h="xl" />
           <Space h="xl" />
         </Stack>
