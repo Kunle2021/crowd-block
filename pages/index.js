@@ -23,12 +23,16 @@ import {
 
 import React, { Component } from "react";
 import Home from "../components/project/home";
+import { Link } from "../routes";
+import { useStyles } from "../components/project/home"
 
 const styleButton = {
   backgroundColor: "green",
 };
 
 export default function Projects({ projects }) {
+  const { classes } = useStyles();
+
   const data = projects.map((projects) => (
     <tr key={projects}>
       <td>
@@ -42,7 +46,11 @@ export default function Projects({ projects }) {
       </td>
       <td>Contract</td>
       <td>
-        <Button style={styleButton}>View Details</Button>
+        <Button style={styleButton}>
+          <Link route={`/projects/${projects}`}>
+            <a className={classes.links}> View Details</a>
+          </Link>
+        </Button>
       </td>
     </tr>
   ));
