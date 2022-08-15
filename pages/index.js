@@ -24,7 +24,7 @@ import {
 import React, { Component } from "react";
 import Home from "../components/project/home";
 import { Link } from "../routes";
-import { useStyles } from "../components/project/home"
+import { useStyles } from "../components/project/home";
 
 const styleButton = {
   backgroundColor: "green",
@@ -47,7 +47,7 @@ export default function Projects({ projects }) {
       <td>Contract</td>
       <td>
         <Button style={styleButton}>
-          <Link route={`/projects/${projects}`}>
+          <Link route={`/project/${projects}`}>
             <a className={classes.links}> View Details</a>
           </Link>
         </Button>

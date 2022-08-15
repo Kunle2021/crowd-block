@@ -23,6 +23,7 @@ contract Project {
     address public manager;
     uint256 public minContribution;
     uint256 public contributersCount;
+    string public campaignDetails;
 
     uint256 numRequests;
     mapping(uint256 => Request) public requests;
@@ -88,6 +89,32 @@ contract Project {
         payable(request.recipient).transfer(request.value);
         //Transfering funds hence request must be payable
         request.complete = true;
+    }
+
+    function getDetails()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            string memory,
+            address
+        )
+    {
+        return (
+            minContribution,
+            contributersCount,
+            address(this).balance,
+            numRequests,
+            campaignDetails,
+            manager
+        );
+    }
+
+    function getNumRequest() public view returns (uint256) {
+        return numRequests;
     }
 
     modifier restrictedManager() {
