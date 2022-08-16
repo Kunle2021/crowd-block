@@ -3,6 +3,8 @@ const { ethers, waffle } = require("hardhat");
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
 const { assert } = require("console");
 
+// Need to update the contract test - adding campaign detail and a new campaign name
+
 describe("Test Project Contract functions", function () {
   async function deployContract() {
     const [owner, addr1, addr2] = await ethers.getSigners();

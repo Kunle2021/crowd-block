@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\eleayo\\VS Code\\crowdblock\\contracts\\Project.sol": {
-      "lastModificationDate": 1659894126779,
-      "contentHash": "d108d955b901fff56606b4fd06206ed2",
+      "lastModificationDate": 1660613168363,
+      "contentHash": "f861687b64d7cdd6a466b4cec728555d",
       "sourceName": "contracts/Project.sol",
       "solcConfig": {
         "version": "0.8.6",
@@ -74,8 +74,8 @@
       ]
     },
     "C:\\Users\\eleayo\\VS Code\\crowdblock\\contracts\\ProjectFactory.sol": {
-      "lastModificationDate": 1660270203220,
-      "contentHash": "9bc0760bebe6641bb26a400ed7adfdb3",
+      "lastModificationDate": 1660613206925,
+      "contentHash": "a48e3a13f732f90c9909aa3249a177a7",
       "sourceName": "contracts/ProjectFactory.sol",
       "solcConfig": {
         "version": "0.8.6",

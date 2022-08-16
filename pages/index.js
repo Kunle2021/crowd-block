@@ -33,21 +33,26 @@ const styleButton = {
 export default function Projects({ projects }) {
   const { classes } = useStyles();
 
-  const data = projects.map((projects) => (
-    <tr key={projects}>
+  // projects.map((projects) =>
+  console.log(projects);
+
+  const data = projects?.map((project) => (
+    <tr key={project.projectAddress}>
       <td>
         <Group spacing="sm">
           <div>
             <Text size="sm" weight={500}>
-              {projects}
+              {project.projectAddress}
             </Text>
           </div>
         </Group>
       </td>
+      <td>{project.projectName}</td>
       <td>Contract</td>
       <td>
         <Button style={styleButton}>
-          <Link route={`/project/${projects}`}>
+          {/* <Link route={`/project/${projects}`}> */}
+          <Link route={`/project/${project.projectsAddress}`}>
             <a className={classes.links}> View Details</a>
           </Link>
         </Button>
@@ -66,6 +71,7 @@ export default function Projects({ projects }) {
               <thead>
                 <tr>
                   <th>Address</th>
+                  <th>Name</th>
                   <th>Type</th>
                   <th>View</th>
                 </tr>
@@ -80,7 +86,8 @@ export default function Projects({ projects }) {
 }
 
 export async function getServerSideProps() {
-  const projects = await factory.methods.getDeployedCampaigns().call();
+  const projects = await factory.methods.getDeployedProject().call();
+
   return {
     props: { projects },
   };

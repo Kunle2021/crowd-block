@@ -23,7 +23,20 @@ contract Project {
     address public manager;
     uint256 public minContribution;
     uint256 public contributersCount;
-    string public campaignDetails;
+    string public projectDetails;
+    string public projectName;
+    // uint256 contractBalance = address(this).balance;
+
+    struct Summary {
+        uint256 numRequests;
+        uint256 minContribution;
+        uint256 contributersCount;
+        string projectDetails;
+        string projectName;
+        address manager;
+    }
+
+    Summary[] public projectSummary;
 
     uint256 numRequests;
     mapping(uint256 => Request) public requests;
@@ -33,9 +46,16 @@ contract Project {
 
     mapping(address => bool) contributers;
 
-    constructor(uint256 minimum, address creator) payable {
+    constructor(
+        uint256 minimum,
+        string memory details,
+        string memory name,
+        address creator
+    ) payable {
         manager = creator;
         minContribution = minimum;
+        projectDetails = details;
+        projectName = name;
     }
 
     function Contribute() public payable {
@@ -91,26 +111,23 @@ contract Project {
         request.complete = true;
     }
 
-    function getDetails()
-        public
-        view
-        returns (
-            uint256,
-            uint256,
-            uint256,
-            uint256,
-            string memory,
-            address
-        )
-    {
-        return (
-            minContribution,
-            contributersCount,
-            address(this).balance,
-            numRequests,
-            campaignDetails,
-            manager
+    function getSummary() public returns (Summary[] memory) {
+        projectSummary.push(
+            Summary(
+                minContribution,
+                contributersCount,
+                numRequests,
+                projectDetails,
+                projectName,
+                manager
+            )
         );
+        return projectSummary;
+    }
+
+    function getBalance() public view returns (uint256) {
+        uint256 balance = address(this).balance;
+        return balance;
     }
 
     function getNumRequest() public view returns (uint256) {

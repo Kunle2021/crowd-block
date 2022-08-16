@@ -1,5 +1,3 @@
-
-import Ganache from "ganache";
 import { ethers } from "hardhat";
 import { Project, ProjectFactory } from "../typechain-types"
 
@@ -18,7 +16,7 @@ describe("Deploying the project contract from the projectFactory", function () {
   });
 
   it("deploy a Project using ProjectFactory ", async () => {
-    const tx = await projectFactory.CreateCampaign(10);
+    const tx = await projectFactory.newProject(10, "test", "test");
     const rc = await tx.wait();
     const event = rc.events?.find((event) => event.event === "CreatedProject");
     const args = event?.args;
@@ -34,7 +32,7 @@ describe("Deploying the project contract from the projectFactory", function () {
   
 
   it("Get Address of the deployed contract", async () => {
-    const mp = await projectFactory.getDeployedCampaigns();
+    const mp = await projectFactory.getDeployedProject();
     console.log(mp);
   })
 

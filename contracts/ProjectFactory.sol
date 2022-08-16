@@ -8,20 +8,32 @@ import "./Project.sol";
 pragma solidity ^0.8.6;
 
 contract ProjectFactory {
-    address[] public deployedCampaigns;
+    struct ProjectStruct {
+        address projectAddress;
+        string projectName;
+    }
+
+    ProjectStruct[] public deployedProjects;
 
     event CreatedProject(address projectAddress);
 
-    function CreateCampaign(uint256 minimum) public payable returns (address) {
-        Project newContract = new Project(minimum, msg.sender);
-        deployedCampaigns.push(payable(address(newContract)));
+    function newProject(
+        uint256 minimum,
+        string memory details,
+        string memory name
+    ) public payable returns (address) {
+        Project newContract = new Project(minimum, details, name, msg.sender);
+        deployedProjects.push(
+            ProjectStruct(payable(address(newContract)), (name))
+        );
         //When we create an instance of a campaign the constructor must also be considered
         emit CreatedProject(address(newContract));
         return address(newContract);
     }
 
-    function getDeployedCampaigns() public view returns (address[] memory) {
-        return deployedCampaigns;
+    function getDeployedProject() public view returns (ProjectStruct[] memory) {
+        // return (deployedProject, projectName);
+        return deployedProjects;
     }
 }
 

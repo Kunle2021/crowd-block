@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
-import { Container, Space, NumberInput } from "@mantine/core";
+import { Container, Space, NumberInput, TextInput } from "@mantine/core";
 
 import Menu from "../../components/search";
 import factory from "../../src/factory";
@@ -9,15 +9,7 @@ import Web3 from "../../src/Web3";
 import { Router } from "../../routes";
 import Searchheader from "../../components/searchheader";
 
-import {
-  createStyles,
-  Text,
-  Title,
-  TextInput,
-  Button,
-  Image,
-  LoadingOverlay,
-} from "@mantine/core";
+import { createStyles, Text, Title, Button, Textarea } from "@mantine/core";
 // import image from "./image.svg";
 
 const useStyles = createStyles((theme) => ({
@@ -121,12 +113,16 @@ export default function New() {
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
-    initialValues: { minContribution: 0 },
+    initialValues: { minContribution: 0, projectName: "", projectDetails: "" },
 
     // functions will be used to validate values at corresponding key
     validate: {
       minContribution: (value) =>
         value < 1 ? "You must at contribute least 1 Wei" : null,
+      projectDetails: (value) =>
+        value.length < 25 > 200 ? "Write more than 25 characters" : null,
+      projectName: (value) =>
+        value.length < 3 ? "Enter more than 3 characters" : null,
     },
   });
 
@@ -135,9 +131,15 @@ export default function New() {
 
     try {
       const account = await Web3.eth.getAccounts();
-      await factory.methods.CreateCampaign(form.values.minContribution).send({
-        from: account[0],
-      });
+      await factory.methods
+        .newProject(
+          form.values.minContribution,
+          form.values.projectDetails,
+          form.values.projectName
+        )
+        .send({
+          from: account[0],
+        });
       Router.pushRoute("/");
     } catch (error) {
       setError({
@@ -171,9 +173,15 @@ export default function New() {
           <div className={classes.controls}>
             <Container
               style={container}
-              classNames={{ input: classes.input, root: classes.inputWrapper }}
+              className={{ input: classes.input, root: classes.inputWrapper }}
             >
               <form onSubmit={form.onSubmit(onContribute)}>
+                <TextInput
+                  label="Project Name"
+                  placeholder="Project Name"
+                  {...form.getInputProps("projectName")}
+                />
+
                 <NumberInput
                   mt="sm"
                   label="minContribution(WEI)"
@@ -182,6 +190,13 @@ export default function New() {
                   max={100000000000000}
                   {...form.getInputProps("minContribution")}
                 />
+                <Textarea
+                  placeholder="Project Information"
+                  label="Project Details"
+                  required
+                  {...form.getInputProps("projectDetails")}
+                />
+
                 <Button
                   loading={loading}
                   type="submit"

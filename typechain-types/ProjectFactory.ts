@@ -27,45 +27,58 @@ import type {
   PromiseOrValue,
 } from "./common";
 
+export declare namespace ProjectFactory {
+  export type ProjectStructStruct = {
+    projectAddress: PromiseOrValue<string>;
+    projectName: PromiseOrValue<string>;
+  };
+
+  export type ProjectStructStructOutput = [string, string] & {
+    projectAddress: string;
+    projectName: string;
+  };
+}
+
 export interface ProjectFactoryInterface extends utils.Interface {
   functions: {
-    "CreateCampaign(uint256)": FunctionFragment;
-    "deployedCampaigns(uint256)": FunctionFragment;
-    "getDeployedCampaigns()": FunctionFragment;
+    "deployedProjects(uint256)": FunctionFragment;
+    "getDeployedProject()": FunctionFragment;
+    "newProject(uint256,string,string)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "CreateCampaign"
-      | "deployedCampaigns"
-      | "getDeployedCampaigns"
+      | "deployedProjects"
+      | "getDeployedProject"
+      | "newProject"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "CreateCampaign",
+    functionFragment: "deployedProjects",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "deployedCampaigns",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getDeployedCampaigns",
+    functionFragment: "getDeployedProject",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "newProject",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "CreateCampaign",
+    functionFragment: "deployedProjects",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "deployedCampaigns",
+    functionFragment: "getDeployedProject",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getDeployedCampaigns",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "newProject", data: BytesLike): Result;
 
   events: {
     "CreatedProject(address)": EventFragment;
@@ -111,43 +124,61 @@ export interface ProjectFactory extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    CreateCampaign(
-      minimum: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
-
-    deployedCampaigns(
+    deployedProjects(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<[string]>;
+    ): Promise<
+      [string, string] & { projectAddress: string; projectName: string }
+    >;
 
-    getDeployedCampaigns(overrides?: CallOverrides): Promise<[string[]]>;
+    getDeployedProject(
+      overrides?: CallOverrides
+    ): Promise<[ProjectFactory.ProjectStructStructOutput[]]>;
+
+    newProject(
+      minimum: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      name: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
-  CreateCampaign(
+  deployedProjects(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [string, string] & { projectAddress: string; projectName: string }
+  >;
+
+  getDeployedProject(
+    overrides?: CallOverrides
+  ): Promise<ProjectFactory.ProjectStructStructOutput[]>;
+
+  newProject(
     minimum: PromiseOrValue<BigNumberish>,
+    details: PromiseOrValue<string>,
+    name: PromiseOrValue<string>,
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  deployedCampaigns(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  getDeployedCampaigns(overrides?: CallOverrides): Promise<string[]>;
-
   callStatic: {
-    CreateCampaign(
-      minimum: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    deployedCampaigns(
+    deployedProjects(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<string>;
+    ): Promise<
+      [string, string] & { projectAddress: string; projectName: string }
+    >;
 
-    getDeployedCampaigns(overrides?: CallOverrides): Promise<string[]>;
+    getDeployedProject(
+      overrides?: CallOverrides
+    ): Promise<ProjectFactory.ProjectStructStructOutput[]>;
+
+    newProject(
+      minimum: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
   };
 
   filters: {
@@ -156,32 +187,36 @@ export interface ProjectFactory extends BaseContract {
   };
 
   estimateGas: {
-    CreateCampaign(
-      minimum: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
-
-    deployedCampaigns(
+    deployedProjects(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getDeployedCampaigns(overrides?: CallOverrides): Promise<BigNumber>;
+    getDeployedProject(overrides?: CallOverrides): Promise<BigNumber>;
+
+    newProject(
+      minimum: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      name: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    CreateCampaign(
-      minimum: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
-
-    deployedCampaigns(
+    deployedProjects(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getDeployedCampaigns(
+    getDeployedProject(
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    newProject(
+      minimum: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      name: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

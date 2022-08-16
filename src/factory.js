@@ -4,7 +4,7 @@ import { ethers, Signer } from "ethers";
 import web3 from "./Web3";
 
 import projectfactory from "./artifacts/contracts/ProjectFactory.sol/ProjectFactory.json";
-const factoryaddress = "0x30414b6acf4c80d2ef263df96920f4f53bd48fe7";
+const factoryaddress = "0xA211AC638d230B41001dE9f04CDF5Dfd82030e4D";
 
 // const provider = new ethers.providers.Web3Provider(window.ethereum);
 // const contract = new ethers.Contract(factoryaddress, factory.abi, provider);
