@@ -117,6 +117,7 @@ export default function New() {
 
     // functions will be used to validate values at corresponding key
     validate: {
+      //check val
       minContribution: (value) =>
         value < 1 ? "You must at contribute least 1 Wei" : null,
       projectDetails: (value) =>

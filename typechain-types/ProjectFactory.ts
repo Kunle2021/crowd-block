@@ -27,36 +27,22 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export declare namespace ProjectFactory {
-  export type ProjectStructStruct = {
-    projectAddress: PromiseOrValue<string>;
-    projectName: PromiseOrValue<string>;
-  };
-
-  export type ProjectStructStructOutput = [string, string] & {
-    projectAddress: string;
-    projectName: string;
-  };
-}
-
 export interface ProjectFactoryInterface extends utils.Interface {
   functions: {
-    "deployedProjects(uint256)": FunctionFragment;
     "getDeployedProject()": FunctionFragment;
     "newProject(uint256,string,string)": FunctionFragment;
+    "projectAddress(uint256)": FunctionFragment;
+    "projectName(uint256)": FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "deployedProjects"
       | "getDeployedProject"
       | "newProject"
+      | "projectAddress"
+      | "projectName"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "deployedProjects",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
   encodeFunctionData(
     functionFragment: "getDeployedProject",
     values?: undefined
@@ -69,16 +55,28 @@ export interface ProjectFactoryInterface extends utils.Interface {
       PromiseOrValue<string>
     ]
   ): string;
+  encodeFunctionData(
+    functionFragment: "projectAddress",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "projectName",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
 
-  decodeFunctionResult(
-    functionFragment: "deployedProjects",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "getDeployedProject",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "newProject", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "projectAddress",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "projectName",
+    data: BytesLike
+  ): Result;
 
   events: {
     "CreatedProject(address)": EventFragment;
@@ -124,16 +122,9 @@ export interface ProjectFactory extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    deployedProjects(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<
-      [string, string] & { projectAddress: string; projectName: string }
-    >;
-
     getDeployedProject(
       overrides?: CallOverrides
-    ): Promise<[ProjectFactory.ProjectStructStructOutput[]]>;
+    ): Promise<[string[], string[]]>;
 
     newProject(
       minimum: PromiseOrValue<BigNumberish>,
@@ -141,18 +132,19 @@ export interface ProjectFactory extends BaseContract {
       name: PromiseOrValue<string>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    projectAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    projectName(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
   };
 
-  deployedProjects(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<
-    [string, string] & { projectAddress: string; projectName: string }
-  >;
-
-  getDeployedProject(
-    overrides?: CallOverrides
-  ): Promise<ProjectFactory.ProjectStructStructOutput[]>;
+  getDeployedProject(overrides?: CallOverrides): Promise<[string[], string[]]>;
 
   newProject(
     minimum: PromiseOrValue<BigNumberish>,
@@ -161,22 +153,35 @@ export interface ProjectFactory extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  callStatic: {
-    deployedProjects(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<
-      [string, string] & { projectAddress: string; projectName: string }
-    >;
+  projectAddress(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
+  projectName(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  callStatic: {
     getDeployedProject(
       overrides?: CallOverrides
-    ): Promise<ProjectFactory.ProjectStructStructOutput[]>;
+    ): Promise<[string[], string[]]>;
 
     newProject(
       minimum: PromiseOrValue<BigNumberish>,
       details: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    projectAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    projectName(
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
   };
@@ -187,11 +192,6 @@ export interface ProjectFactory extends BaseContract {
   };
 
   estimateGas: {
-    deployedProjects(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     getDeployedProject(overrides?: CallOverrides): Promise<BigNumber>;
 
     newProject(
@@ -200,14 +200,19 @@ export interface ProjectFactory extends BaseContract {
       name: PromiseOrValue<string>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    projectAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    projectName(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    deployedProjects(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     getDeployedProject(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -217,6 +222,16 @@ export interface ProjectFactory extends BaseContract {
       details: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    projectAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    projectName(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

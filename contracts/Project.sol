@@ -25,7 +25,6 @@ contract Project {
     uint256 public contributersCount;
     string public projectDetails;
     string public projectName;
-    // uint256 contractBalance = address(this).balance;
 
     struct Summary {
         uint256 numRequests;
@@ -111,7 +110,9 @@ contract Project {
         request.complete = true;
     }
 
-    function getSummary() public returns (Summary[] memory) {
+    //need to redeploy made the function payable (below)
+
+    function getSummary() public payable returns (Summary[] memory) {
         projectSummary.push(
             Summary(
                 minContribution,

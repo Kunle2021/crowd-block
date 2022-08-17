@@ -52,7 +52,7 @@ export default function Projects({ projects }) {
       <td>
         <Button style={styleButton}>
           {/* <Link route={`/project/${projects}`}> */}
-          <Link route={`/project/${project.projectsAddress}`}>
+          <Link route={`/project/${project.projectAddress}`}>
             <a className={classes.links}> View Details</a>
           </Link>
         </Button>
@@ -89,6 +89,13 @@ export async function getServerSideProps() {
   const projects = await factory.methods.getDeployedProject().call();
 
   return {
-    props: { projects },
+    props: {
+      projects: projects[0].map((projectAddress, i) => {
+        return {
+          projectAddress: projectAddress,
+          projectName: projects[1][i],
+        };
+      }),
+    },
   };
 }

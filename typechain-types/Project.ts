@@ -8,7 +8,6 @@ import type {
   BytesLike,
   CallOverrides,
   ContractTransaction,
-  Overrides,
   PayableOverrides,
   PopulatedTransaction,
   Signer,
@@ -245,7 +244,7 @@ export interface Project extends BaseContract {
     getNumRequest(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getSummary(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     manager(overrides?: CallOverrides): Promise<[string]>;
@@ -312,7 +311,7 @@ export interface Project extends BaseContract {
   getNumRequest(overrides?: CallOverrides): Promise<BigNumber>;
 
   getSummary(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   manager(overrides?: CallOverrides): Promise<string>;
@@ -447,7 +446,7 @@ export interface Project extends BaseContract {
     getNumRequest(overrides?: CallOverrides): Promise<BigNumber>;
 
     getSummary(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     manager(overrides?: CallOverrides): Promise<BigNumber>;
@@ -498,7 +497,7 @@ export interface Project extends BaseContract {
     getNumRequest(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getSummary(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     manager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
