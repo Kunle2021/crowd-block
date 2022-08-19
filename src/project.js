@@ -10,8 +10,8 @@ import projectjson from "./artifacts/contracts/Project.sol/Project.json";
 
 // export default project;
 
-export default (projectAddress) => {
-  const proj = new web3.eth.Contract(projectjson.abi, projectAddress);
+export default async (projectAddress) => {
+  const proj = await new web3.eth.Contract(projectjson.abi, projectAddress);
 
   return proj;
 };

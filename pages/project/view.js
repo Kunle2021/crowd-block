@@ -1,7 +1,7 @@
 import React from "react";
 import SearchHeader from "../../components/searchheader";
 // import Search from "../../components/search";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import project from "../../src/project";
 import Contribute from "../../components/contribute";
 
@@ -18,105 +18,85 @@ import {
   Input,
   Space,
 } from "@mantine/core";
-import {
-  IconReceiptOff,
-  IconFlame,
-  IconCircleDotted,
-  IconFileCode,
-} from "@tabler/icons";
 
-export default function View({ summary, url }) {
-  const useStyles = createStyles((theme) => ({
-    wrapper: {
-      padding: `${theme.spacing.xl * 2}px ${theme.spacing.xl}px`,
-    },
+const useStyles = createStyles((theme) => ({
+  wrapper: {
+    padding: `${theme.spacing.xl * 2}px ${theme.spacing.xl}px`,
+  },
 
-    title: {
-      fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-      fontSize: 36,
-      fontWeight: 900,
-      lineHeight: 1.1,
-      marginBottom: theme.spacing.md,
-      color:
-        theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
-    },
+  title: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    fontSize: 36,
+    fontWeight: 900,
+    lineHeight: 1.1,
+    marginBottom: theme.spacing.md,
+    color:
+      theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
+  },
 
-    colour: {
-      color:
-        theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
-    },
-  }));
+  manager: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    fontSize: 16,
+    fontWeight: 400,
+    lineHeight: 1.1,
+    marginBottom: theme.spacing.md,
+    color:
+      theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
+    paddingBottom: 19.5,
+  },
 
-  const features = [
-    {
-      icon: IconReceiptOff,
-      title: "Minimum Contribution",
-      description:
-        "All packages are published under MIT license, you can use Mantine in any project",
-    },
-    {
-      icon: IconFileCode,
-      title: "Contract Balance",
-      description:
-        "Build type safe applications, all components and hooks export types",
-    },
-    {
-      icon: IconCircleDotted,
-      title: "Project Requests",
-      description:
-        "With new :focus-visible selector focus ring will appear only when user navigates with keyboard",
-    },
-    {
-      icon: IconFlame,
-      title: "Manager",
-      description:
-        "Customize colors, spacing, shadows, fonts and many other settings with global theme object",
-    },
-  ];
+  colour: {
+    color:
+      theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6],
+  },
+}));
 
+const features = [
+  {},
+  {
+    title: "Contract Balance",
+    description:
+      "The amount of funds contributed to the current contract (WEI).",
+  },
+  {
+    title: "Number of Requests",
+    description: "The number of spending requests created by the owner.",
+  },
+  {
+    title: "Manager",
+    description: "The address of the creator of the contract.",
+  },
+  {
+    title: "Minimum Contribution",
+    description: "The minimum amount needed to contribute to the project.",
+  },
+];
+
+export default function View({ summary, slug }) {
   const { classes } = useStyles();
 
-  // size={44} radius="md"
+  // const [sum, setSum] = useState({});
 
-  const items = features.map((feature) => (
-    <div className={feature.title}>
-      <div className={classes.colour}>
-        <feature.icon size={26} stroke={1.5} />
-      </div>
-      <div>
-        <Text size="lg" mt="sm" weight={500}>
-          {feature.title}
-        </Text>
-        <Text color="dimmed" size="sm">
-          {feature.description}
-        </Text>
-      </div>
-    </div>
-  ));
+  // // size={44} radius="md"
+  // useEffect(() => {
+  //   setSum(summary);
+  // }, []);
 
   return (
     <div>
       <Space h="xl" />
       <SearchHeader />
-      {/* <div>{summary}</div> */}
-
-      {/* This is the summary value that is returned - commented at the moment */}
 
       <Container>
         <div className={classes.wrapper}>
           <Grid gutter={80}>
             <Col span={12} md={5}>
               <Title className={classes.title} order={2}>
-                We only have this at the moment
+                {summary.projectName}
               </Title>
-              <Text color="dimmed">
-                Build fully functional accessible web applications faster than
-                ever – Mantine includes more than 120 customizable components
-                and hooks to cover you in any situation
-                {summary.projectDetails}
-              </Text>
+              <Text color="dimmed">{summary.projectDetails}</Text>
 
-              <Contribute {...url} />
+              <Contribute {...slug} />
               {/* Why are we using a spread operator - need to check */}
             </Col>
             <Col span={12} md={7}>
@@ -125,7 +105,68 @@ export default function View({ summary, url }) {
                 spacing={30}
                 breakpoints={[{ maxWidth: "md", cols: 1 }]}
               >
-                {items}
+                <div key={features[4].title} className={features[4].title}>
+                  <div className={classes.colour}>
+                    <div className={classes.title}>
+                      {summary.minContribution}
+                    </div>
+                    <div></div>
+                  </div>
+                  <div>
+                    <Text size="lg" mt="sm" weight={500}>
+                      {features[4].title}
+                    </Text>
+                    <Text color="dimmed" size="sm">
+                      {features[4].description}
+                    </Text>
+                  </div>
+                </div>
+
+                <div key={features[1].title} className={features[1].title}>
+                  <div className={classes.colour}>
+                    <div className={classes.title}>{summary.balance}</div>
+                    <div></div>
+                  </div>
+                  <div>
+                    <Text size="lg" mt="sm" weight={500}>
+                      {features[1].title}
+                    </Text>
+                    <Text color="dimmed" size="sm">
+                      {features[1].description}
+                    </Text>
+                  </div>
+                </div>
+
+                <div key={features[2].title} className={features[2].title}>
+                  <div className={classes.colour}>
+                    <div className={classes.title}>{summary.numRequests}</div>
+                    <div></div>
+                  </div>
+                  <div>
+                    <Text size="lg" mt="sm" weight={500}>
+                      {features[2].title}
+                    </Text>
+                    <Text color="dimmed" size="sm">
+                      {features[2].description}
+                    </Text>
+                  </div>
+                </div>
+
+                <div key={features[3].title} className={features[3].title}>
+                  <div className={classes.colour}>
+                    <div className={classes.container}>
+                      <div className={classes.manager}>{summary.manager}</div>
+                    </div>
+                  </div>
+                  <div>
+                    <Text size="lg" mt="sm" weight={500}>
+                      {features[3].title}
+                    </Text>
+                    <Text color="dimmed" size="sm">
+                      {features[3].description}
+                    </Text>
+                  </div>
+                </div>
               </SimpleGrid>
             </Col>
           </Grid>
@@ -139,14 +180,29 @@ export async function getServerSideProps(context) {
   let slug = context.query.address;
   //console.log(slug);
 
-  const address = project(slug);
-  const summary = await address.methods.getSummary().call();
-  //console.log(summary);
+  const url = await project(slug);
+  const summary = await url.methods.getSummary().call();
+
+  console.log(slug);
+
+  const keys = [
+    "numRequests",
+    "minContribution",
+    "contributersCount",
+    "projectDetails",
+    "projectName",
+    "manager",
+    "balance",
+  ];
+
+  const obj = summary.reduce((accumulator, value, index) => {
+    return { ...accumulator, [keys[index]]: value };
+  }, {});
 
   return {
     props: {
-      summary: summary,
-      url: address,
+      summary: obj,
+      slug: slug,
     },
   };
 }
