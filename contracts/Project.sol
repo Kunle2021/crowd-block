@@ -26,17 +26,6 @@ contract Project {
     string public projectDetails;
     string public projectName;
 
-    struct Summary {
-        uint256 numRequests;
-        uint256 minContribution;
-        uint256 contributersCount;
-        string projectDetails;
-        string projectName;
-        address manager;
-    }
-
-    Summary[] public projectSummary;
-
     uint256 numRequests;
     mapping(uint256 => Request) public requests;
 
@@ -110,26 +99,36 @@ contract Project {
         request.complete = true;
     }
 
+    struct Summary {
+        uint256 numRequests;
+        uint256 minContribution;
+        uint256 contributersCount;
+        string projectDetails;
+        string projectName;
+        address manager;
+        uint256 balance;
+    }
+
+    mapping(address => Summary) public sum;
+
     //need to redeploy made the function payable (below)
 
-    function getSummary() public payable returns (Summary[] memory) {
-        projectSummary.push(
-            Summary(
-                minContribution,
-                contributersCount,
-                numRequests,
-                projectDetails,
-                projectName,
-                manager
-            )
-        );
-        return projectSummary;
+    function getSummary() public returns (Summary memory) {
+        sum[address(this)].numRequests = numRequests;
+        sum[address(this)].minContribution = minContribution;
+        sum[address(this)].contributersCount = contributersCount;
+        sum[address(this)].projectDetails = projectDetails;
+        sum[address(this)].projectName = projectName;
+        sum[address(this)].manager = manager;
+        sum[address(this)].balance = address(this).balance;
+
+        return sum[address(this)];
     }
 
-    function getBalance() public view returns (uint256) {
-        uint256 balance = address(this).balance;
-        return balance;
-    }
+    // function getBalance() public view returns (uint256) {
+    //     uint256 balance = address(this).balance;
+    //     return balance;
+    // }
 
     function getNumRequest() public view returns (uint256) {
         return numRequests;

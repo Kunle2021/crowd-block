@@ -8,6 +8,7 @@ import type {
   BytesLike,
   CallOverrides,
   ContractTransaction,
+  Overrides,
   PayableOverrides,
   PopulatedTransaction,
   Signer,
@@ -31,6 +32,7 @@ export declare namespace Project {
     projectDetails: PromiseOrValue<string>;
     projectName: PromiseOrValue<string>;
     manager: PromiseOrValue<string>;
+    balance: PromiseOrValue<BigNumberish>;
   };
 
   export type SummaryStructOutput = [
@@ -39,7 +41,8 @@ export declare namespace Project {
     BigNumber,
     string,
     string,
-    string
+    string,
+    BigNumber
   ] & {
     numRequests: BigNumber;
     minContribution: BigNumber;
@@ -47,6 +50,7 @@ export declare namespace Project {
     projectDetails: string;
     projectName: string;
     manager: string;
+    balance: BigNumber;
   };
 }
 
@@ -57,15 +61,14 @@ export interface ProjectInterface extends utils.Interface {
     "contributersCount()": FunctionFragment;
     "createRequest(string,uint256,address)": FunctionFragment;
     "finishRequest(uint256)": FunctionFragment;
-    "getBalance()": FunctionFragment;
     "getNumRequest()": FunctionFragment;
     "getSummary()": FunctionFragment;
     "manager()": FunctionFragment;
     "minContribution()": FunctionFragment;
     "projectDetails()": FunctionFragment;
     "projectName()": FunctionFragment;
-    "projectSummary(uint256)": FunctionFragment;
     "requests(uint256)": FunctionFragment;
+    "sum(address)": FunctionFragment;
   };
 
   getFunction(
@@ -75,15 +78,14 @@ export interface ProjectInterface extends utils.Interface {
       | "contributersCount"
       | "createRequest"
       | "finishRequest"
-      | "getBalance"
       | "getNumRequest"
       | "getSummary"
       | "manager"
       | "minContribution"
       | "projectDetails"
       | "projectName"
-      | "projectSummary"
       | "requests"
+      | "sum"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -111,10 +113,6 @@ export interface ProjectInterface extends utils.Interface {
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "getBalance",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getNumRequest",
     values?: undefined
   ): string;
@@ -136,12 +134,12 @@ export interface ProjectInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "projectSummary",
+    functionFragment: "requests",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "requests",
-    values: [PromiseOrValue<BigNumberish>]
+    functionFragment: "sum",
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(functionFragment: "Contribute", data: BytesLike): Result;
@@ -161,7 +159,6 @@ export interface ProjectInterface extends utils.Interface {
     functionFragment: "finishRequest",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getBalance", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getNumRequest",
     data: BytesLike
@@ -180,11 +177,8 @@ export interface ProjectInterface extends utils.Interface {
     functionFragment: "projectName",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "projectSummary",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "requests", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sum", data: BytesLike): Result;
 
   events: {};
 }
@@ -239,12 +233,10 @@ export interface Project extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    getBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     getNumRequest(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getSummary(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     manager(overrides?: CallOverrides): Promise<[string]>;
@@ -254,20 +246,6 @@ export interface Project extends BaseContract {
     projectDetails(overrides?: CallOverrides): Promise<[string]>;
 
     projectName(overrides?: CallOverrides): Promise<[string]>;
-
-    projectSummary(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber, string, string, string] & {
-        numRequests: BigNumber;
-        minContribution: BigNumber;
-        contributersCount: BigNumber;
-        projectDetails: string;
-        projectName: string;
-        manager: string;
-      }
-    >;
 
     requests(
       arg0: PromiseOrValue<BigNumberish>,
@@ -279,6 +257,21 @@ export interface Project extends BaseContract {
         recipient: string;
         complete: boolean;
         approverCount: BigNumber;
+      }
+    >;
+
+    sum(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, string, string, string, BigNumber] & {
+        numRequests: BigNumber;
+        minContribution: BigNumber;
+        contributersCount: BigNumber;
+        projectDetails: string;
+        projectName: string;
+        manager: string;
+        balance: BigNumber;
       }
     >;
   };
@@ -306,12 +299,10 @@ export interface Project extends BaseContract {
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  getBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
   getNumRequest(overrides?: CallOverrides): Promise<BigNumber>;
 
   getSummary(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   manager(overrides?: CallOverrides): Promise<string>;
@@ -321,20 +312,6 @@ export interface Project extends BaseContract {
   projectDetails(overrides?: CallOverrides): Promise<string>;
 
   projectName(overrides?: CallOverrides): Promise<string>;
-
-  projectSummary(
-    arg0: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber, BigNumber, string, string, string] & {
-      numRequests: BigNumber;
-      minContribution: BigNumber;
-      contributersCount: BigNumber;
-      projectDetails: string;
-      projectName: string;
-      manager: string;
-    }
-  >;
 
   requests(
     arg0: PromiseOrValue<BigNumberish>,
@@ -346,6 +323,21 @@ export interface Project extends BaseContract {
       recipient: string;
       complete: boolean;
       approverCount: BigNumber;
+    }
+  >;
+
+  sum(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, string, string, string, BigNumber] & {
+      numRequests: BigNumber;
+      minContribution: BigNumber;
+      contributersCount: BigNumber;
+      projectDetails: string;
+      projectName: string;
+      manager: string;
+      balance: BigNumber;
     }
   >;
 
@@ -371,13 +363,9 @@ export interface Project extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    getBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
     getNumRequest(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getSummary(
-      overrides?: CallOverrides
-    ): Promise<Project.SummaryStructOutput[]>;
+    getSummary(overrides?: CallOverrides): Promise<Project.SummaryStructOutput>;
 
     manager(overrides?: CallOverrides): Promise<string>;
 
@@ -386,20 +374,6 @@ export interface Project extends BaseContract {
     projectDetails(overrides?: CallOverrides): Promise<string>;
 
     projectName(overrides?: CallOverrides): Promise<string>;
-
-    projectSummary(
-      arg0: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber, BigNumber, string, string, string] & {
-        numRequests: BigNumber;
-        minContribution: BigNumber;
-        contributersCount: BigNumber;
-        projectDetails: string;
-        projectName: string;
-        manager: string;
-      }
-    >;
 
     requests(
       arg0: PromiseOrValue<BigNumberish>,
@@ -411,6 +385,21 @@ export interface Project extends BaseContract {
         recipient: string;
         complete: boolean;
         approverCount: BigNumber;
+      }
+    >;
+
+    sum(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, string, string, string, BigNumber] & {
+        numRequests: BigNumber;
+        minContribution: BigNumber;
+        contributersCount: BigNumber;
+        projectDetails: string;
+        projectName: string;
+        manager: string;
+        balance: BigNumber;
       }
     >;
   };
@@ -441,12 +430,10 @@ export interface Project extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    getBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
     getNumRequest(overrides?: CallOverrides): Promise<BigNumber>;
 
     getSummary(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     manager(overrides?: CallOverrides): Promise<BigNumber>;
@@ -457,13 +444,13 @@ export interface Project extends BaseContract {
 
     projectName(overrides?: CallOverrides): Promise<BigNumber>;
 
-    projectSummary(
+    requests(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    requests(
-      arg0: PromiseOrValue<BigNumberish>,
+    sum(
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -492,12 +479,10 @@ export interface Project extends BaseContract {
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    getBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getNumRequest(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getSummary(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     manager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -508,13 +493,13 @@ export interface Project extends BaseContract {
 
     projectName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    projectSummary(
+    requests(
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    requests(
-      arg0: PromiseOrValue<BigNumberish>,
+    sum(
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

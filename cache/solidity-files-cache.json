@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\eleayo\\VS Code\\crowdblock\\contracts\\Project.sol": {
-      "lastModificationDate": 1660616413056,
-      "contentHash": "68f4b4d04e5513689820dd63c0143ada",
+      "lastModificationDate": 1660853778083,
+      "contentHash": "a52696bd8bb8dc44cce8aabc8d7f7c3f",
       "sourceName": "contracts/Project.sol",
       "solcConfig": {
         "version": "0.8.6",
