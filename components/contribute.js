@@ -4,7 +4,7 @@ import { useForm } from "@mantine/form";
 import { Container, Space, NumberInput, TextInput } from "@mantine/core";
 
 import project from "../src/project";
-import web3 from "../src/Web3";
+import Web3 from "../src/Web3";
 import { Router } from "../routes";
 
 import { createStyles, Text, Title, Button, Textarea } from "@mantine/core";
@@ -50,7 +50,8 @@ const buttonStyles = {
   radius: "md",
 };
 
-export default function Contribute(address) {
+export default function Contribute(props) {
+  const url = props.slug;
   const { classes } = useStyles();
 
   const [error, setError] = useState();
@@ -70,14 +71,20 @@ export default function Contribute(address) {
   const onContribute = async () => {
     setLoading(true);
 
+    console.log(url);
+    const address = await project(url);
+
     try {
       const account = await Web3.eth.getAccounts();
       //configure with contribute methods
-      await address.methods.Contribute(form.values.Contribution).send({
+      await address.methods.Contribute().send({
         from: account[0],
+        value: form.values.Contribution,
       });
-      Router.pushRoute("/");
-    } catch (error) {
+      // Router.pushRoute("/");
+      Router.replaceRoute(`/project/${url}`);
+      //replace route refreshes the page
+    } catch {
       setError({
         error,
       });

@@ -96,7 +96,7 @@ export default function View({ summary, slug }) {
               </Title>
               <Text color="dimmed">{summary.projectDetails}</Text>
 
-              <Contribute {...slug} />
+              <Contribute slug={slug} />
               {/* Why are we using a spread operator - need to check */}
             </Col>
             <Col span={12} md={7}>
@@ -182,8 +182,6 @@ export async function getServerSideProps(context) {
 
   const url = await project(slug);
   const summary = await url.methods.getSummary().call();
-
-  console.log(slug);
 
   const keys = [
     "numRequests",
