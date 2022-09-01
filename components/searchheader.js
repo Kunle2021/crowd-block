@@ -27,7 +27,7 @@ export default function searchheader() {
         </Link>
       </Title>
       <Space h="md" />
-      <Search />
+      {/* <Search /> */}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import SearchHeader from "../../components/searchheader";
 import { useEffect, useState } from "react";
 import project from "../../src/project";
 import Contribute from "../../components/contribute";
+import { Link } from "../../routes";
 
 import {
   createStyles,
@@ -168,6 +169,10 @@ export default function View({ summary, slug }) {
                   </div>
                 </div>
               </SimpleGrid>
+              <Space h="xl" />
+              <Link route={`/project/${slug}/requests`}>
+                <Button>View Requests</Button>
+              </Link>
             </Col>
           </Grid>
         </div>

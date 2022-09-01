@@ -119,9 +119,7 @@ export default function Home() {
 
           <Container p={0} size={600}>
             <Text size="lg" color="dimmed" className={classes.description}>
-              Build more reliable software with AI companion. AI is also trained
-              to detect lazy developers who do nothing and just complain on
-              Twitter.
+              Create and Contribute to Crowdfunded projects on the Blockchain
             </Text>
           </Container>
 
