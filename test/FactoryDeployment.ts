@@ -28,12 +28,12 @@ describe("Deploying the project contract from the projectFactory", function () {
     project = await Project.attach(projectAddress);
   });
 
-  //Need to test getting the address of the campaign that is deployed.
-  
-
   it("Get Address of the deployed contract", async () => {
     const mp = await projectFactory.getDeployedProject();
-    console.log(mp);
+    // console.log(mp);
+    const first = mp[0][0]
+    // console.log(first)
+    expect(ethers.utils.isAddress(first))
   })
 
   

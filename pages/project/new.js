@@ -127,7 +127,7 @@ export default function New() {
     },
   });
 
-  const onContribute = async () => {
+  const onCreate = async () => {
     setLoading(true);
 
     try {
@@ -146,7 +146,6 @@ export default function New() {
       setError({
         error,
       });
-      //may look at error box here
     }
 
     setLoading(false);
@@ -176,7 +175,7 @@ export default function New() {
               style={container}
               className={{ input: classes.input, root: classes.inputWrapper }}
             >
-              <form onSubmit={form.onSubmit(onContribute)}>
+              <form onSubmit={form.onSubmit(onCreate)}>
                 <TextInput
                   label="Project Name"
                   placeholder="Project Name"

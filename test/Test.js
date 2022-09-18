@@ -9,7 +9,12 @@ describe("Test Project Contract functions", function () {
   async function deployContract() {
     const [owner, addr1, addr2] = await ethers.getSigners();
     const TestProject = await ethers.getContractFactory("Project");
-    const hardhatProject = await TestProject.deploy(10, owner.address);
+    const hardhatProject = await TestProject.deploy(
+      10,
+      "My contract",
+      "My Contract Description",
+      owner.address
+    );
 
     return { owner, hardhatProject, addr1, addr2 };
   }

@@ -34,11 +34,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/project/requests.js"
-    ],
-    "/project/requests/create": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/project/requests/create.js"
     ]
   },
   "ampFirstPages": []

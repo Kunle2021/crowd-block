@@ -183,10 +183,11 @@ export default function View({ summary, slug }) {
 
 export async function getServerSideProps(context) {
   let slug = context.query.address;
-  //console.log(slug);
 
   const url = await project(slug);
   const summary = await url.methods.getSummary().call();
+
+  console.log(url);
 
   const keys = [
     "numRequests",

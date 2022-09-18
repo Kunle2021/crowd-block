@@ -22,7 +22,7 @@ contract Project {
     // Request[] public requests; // allows to create an array of requests (for the spending requests)
     address public manager;
     uint256 public minContribution;
-    uint256 public contributersCount;
+    uint256 public contributorsCount;
     string public projectDetails;
     string public projectName;
 
@@ -32,7 +32,7 @@ contract Project {
     //Can't use an array of approvers due to gas fees
     // address[] public contributors;
 
-    mapping(address => bool) contributers;
+    mapping(address => bool) contributors;
 
     constructor(
         uint256 minimum,
@@ -48,9 +48,8 @@ contract Project {
 
     function Contribute() public payable {
         require(msg.value > minContribution);
-        // contributors.push(msg.sender); //only able if pushing to an array
-        contributers[msg.sender] = true;
-        contributersCount++;
+        contributors[msg.sender] = true;
+        contributorsCount++;
         //sets user that contributes to true in mapping
     }
 
@@ -75,9 +74,8 @@ contract Project {
 
     function approveRequest(uint256 index) public payable {
         Request storage request = requests[index];
-        //object accessed in storage as we want to manipulate the struct not make a copy
 
-        require(contributers[msg.sender]);
+        require(contributors[msg.sender]);
         //Requires that the address is in the contributers mapping
         require(!request.hasApproved[msg.sender]);
         //if the person has already voted on the spending request it shouldn't work hence !
@@ -91,7 +89,7 @@ contract Project {
     function finishRequest(uint256 index) public payable restrictedManager {
         Request storage request = requests[index];
         require(!request.complete);
-        require(request.approverCount > (contributersCount / 2));
+        require(request.approverCount > (contributorsCount / 2));
         //More than 50% of contributers must have approved so request can pass
         //if the request is already complete it breaks
         payable(request.recipient).transfer(request.value);
@@ -116,7 +114,7 @@ contract Project {
     function getSummary() public returns (Summary memory) {
         sum[address(this)].numRequests = numRequests;
         sum[address(this)].minContribution = minContribution;
-        sum[address(this)].contributersCount = contributersCount;
+        sum[address(this)].contributersCount = contributorsCount;
         sum[address(this)].projectDetails = projectDetails;
         sum[address(this)].projectName = projectName;
         sum[address(this)].manager = manager;
@@ -124,11 +122,6 @@ contract Project {
 
         return sum[address(this)];
     }
-
-    // function getBalance() public view returns (uint256) {
-    //     uint256 balance = address(this).balance;
-    //     return balance;
-    // }
 
     function getNumRequest() public view returns (uint256) {
         return numRequests;

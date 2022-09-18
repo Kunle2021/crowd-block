@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
 import { useForm } from "@mantine/form";
+import { ethers } from "ethers";
 
 import project from "../../../src/project";
 import Web3 from "../../../src/Web3";
 import { Router } from "../../../routes";
-import searchheader from "../../../components/searchheader";
+import Searchheader from "../../../components/searchheader";
 
 import {
   createStyles,
@@ -122,13 +123,13 @@ export default function create({ slug }) {
 
   const form = useForm({
     initialValues: { Description: "", Value: 0, Address: "" },
-
     // functions will be used to validate values at corresponding key
     validate: {
       //check val
       Description: (value) => (value.length < 3 ? "" : null),
-      Value: (value) => (value.length < 1 ? "Enter Value" : null),
-      Address: (value) => (value.length < 3 ? "Not a valid Address" : null),
+      Value: (value) => (value < 1 ? "Enter an amount in WEI" : null),
+      Address: (value) =>
+        !ethers.utils.isAddress(value) ? "Please enter a valid Address" : null,
       //some type of functional validation
     },
   });
@@ -166,7 +167,7 @@ export default function create({ slug }) {
   return (
     <div>
       <Space h="xl" />
-      {/* <Searchheader /> */}
+      <Searchheader />
       <Space h="xl" />
 
       <div className={classes.wrapper}>

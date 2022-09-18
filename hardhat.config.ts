@@ -7,8 +7,6 @@ import '@nomiclabs/hardhat-waffle'
 
 require("@nomiclabs/hardhat-waffle");
 
-//need to change the network
-
 const ALCHEMY_API_KEY = "lR--iFs_zgovNcNOuhaI2oT2fpNnbz1V";
 const GOERLI_PRIVATE_KEY =
   "4f73b25e053aba8d56fb8e6a078fa5576e44d18269aa5c6e67be636b44ac8938";
